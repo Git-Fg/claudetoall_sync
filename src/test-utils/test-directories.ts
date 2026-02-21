@@ -1,15 +1,9 @@
 import crypto from "node:crypto";
+import { mkdir, rm } from "node:fs/promises";
 import { join } from "node:path";
 
-import { ensureDir, removeDirectory } from "../utils/file.js";
-
-// Store the original cwd at module load time, before any mocks are applied
 const originalCwd = process.cwd();
 
-/**
- * Helper for test setup and cleanup
- * Returns an object with testDir path and cleanup function
- */
 export async function setupTestDirectory({ home }: { home: boolean } = { home: false }): Promise<{
   testDir: string;
   cleanup: () => Promise<void>;
@@ -18,9 +12,9 @@ export async function setupTestDirectory({ home }: { home: boolean } = { home: f
   const testDir = home
     ? join(testsDir, "home", randomString(16))
     : join(testsDir, "projects", randomString(16));
-  await ensureDir(testDir);
+  await mkdir(testDir, { recursive: true });
 
-  const cleanup = () => removeDirectory(testDir);
+  const cleanup = () => rm(testDir, { recursive: true, force: true });
   return { testDir, cleanup };
 }
 

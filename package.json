@@ -1,10 +1,11 @@
 {
-  "name": "rulesync",
-  "version": "7.6.3",
-  "description": "Unified AI rules management CLI tool that generates configuration files for various AI development tools",
+  "name": "claudetoall_sync",
+  "version": "1.0.0",
+  "description": "Sync Claude's config to all detected AI agents",
   "keywords": [
     "ai",
     "cli",
+    "claude",
     "cline",
     "configuration",
     "copilot",
@@ -39,19 +40,19 @@
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "rulesync": "dist/cli/index.js"
+    "claudetoall_sync": "dist/cli.js"
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/cli/index.ts src/index.ts --format cjs,esm --dts --clean",
+    "build": "tsup src/cli.ts src/index.ts --format cjs,esm --dts --clean",
     "check": "pnpm run fmt:check && pnpm run oxlint && pnpm run eslint && pnpm run typecheck",
     "cicheck": "pnpm run cicheck:code && pnpm run cicheck:content",
     "cicheck:code": "pnpm run check && pnpm run test",
     "cicheck:content": "pnpm run cspell && pnpm run secretlint",
     "cspell": "cspell --no-progress --gitignore .",
-    "dev": "tsx src/cli/index.ts",
+    "dev": "tsx src/cli.ts",
     "docs:build": "vitepress build docs",
     "docs:dev": "vitepress dev docs",
     "docs:preview": "vitepress serve docs",
@@ -60,12 +61,11 @@
     "fix": "pnpm run fmt && pnpm run oxlint:fix && pnpm run eslint:fix",
     "fmt": "oxfmt .",
     "fmt:check": "oxfmt --check .",
-    "generate": "pnpm run dev generate",
     "generate:schema": "tsx scripts/generate-json-schema.ts",
     "knip": "knip",
     "oxlint": "oxlint . --max-warnings 0",
     "oxlint:fix": "oxlint . --fix --max-warnings 0",
-    "prepare": "simple-git-hooks && pnpm generate",
+    "prepare": "simple-git-hooks",
     "prepublishOnly": "pnpm build",
     "secretlint": "secretlint --secretlintignore .gitignore \"**/*\"",
     "sort": "sort-package-json",
