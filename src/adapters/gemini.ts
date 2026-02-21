@@ -1,5 +1,6 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
+
 import type { ClaudeContent } from "../discover/sources.js";
 
 export async function syncGemini(rootDir: string, content: ClaudeContent): Promise<string | null> {

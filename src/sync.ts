@@ -1,5 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { join, relative, resolve } from "node:path";
+
 import { syncCline } from "./adapters/cline.js";
 import { syncCodex } from "./adapters/codex.js";
 import { syncCopilot } from "./adapters/copilot.js";

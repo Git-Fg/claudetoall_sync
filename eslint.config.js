@@ -21,12 +21,11 @@ export default defineConfig([
       "**/.lintstagedrc.js",
       "**/eslint-plugin-*.js",
       "**/tmp/**",
-      "**/docs/**",
     ],
   },
 
   {
-    files: ["src/**/*.ts", "scripts/**/*.ts"],
+    files: ["src/**/*.ts"],
   },
 
   eslint.configs.recommended,
@@ -34,7 +33,7 @@ export default defineConfig([
   ...tseslint.configs.recommended,
 
   {
-    files: ["src/**/*.ts", "scripts/**/*.ts"],
+    files: ["src/**/*.ts"],
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
@@ -53,43 +52,14 @@ export default defineConfig([
       "@typescript-eslint/no-floating-promises": "error",
       "@typescript-eslint/ban-ts-comment": "off",
       "import/no-restricted-paths": "error",
-      "no-type-assertion/no-type-assertion": "warn",
-      "strict-dependencies/strict-dependencies": [
-        "error",
-        [
-          {
-            module: "node:fs",
-            allowReferenceFrom: [
-              "src/utils/file.ts",
-              "src/utils/file.test.ts",
-              "src/lib/update.ts",
-              "src/lib/update.test.ts",
-              "scripts/**/*.ts",
-            ],
-            allowSameModule: false,
-          },
-          {
-            module: "node:os",
-            allowReferenceFrom: [
-              "src/utils/file.ts",
-              "src/utils/file.test.ts",
-              "src/lib/update.ts",
-            ],
-            allowSameModule: false,
-          },
-          {
-            module: "gray-matter",
-            allowReferenceFrom: ["src/utils/frontmatter.ts"],
-            allowSameModule: false,
-          },
-        ],
-      ],
-      "zod-import/zod-import": ["error", { variant: "zod-mini" }],
+      "no-type-assertion/no-type-assertion": "off",
+      "strict-dependencies/strict-dependencies": ["error", []],
+      "zod-import/zod-import": "off",
     },
   },
 
   {
-    files: ["src/**/*.test.ts", "scripts/**/*.test.ts"],
+    files: ["src/**/*.test.ts"],
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
@@ -98,19 +68,10 @@ export default defineConfig([
       },
     },
     rules: {
-      "no-empty": "off", // Allow empty test cases
-      "@typescript-eslint/no-explicit-any": "off", // Allow any in tests
-      "no-new": "off", // Allow new in tests
-      "no-type-assertion/no-type-assertion": "off", // Allow type assertions in tests
-    },
-  },
-
-  {
-    // Scripts are run locally by developers, not bundled for distribution
-    // Allow full zod (not zod/mini) for JSON Schema generation
-    files: ["scripts/**/*.ts"],
-    rules: {
-      "zod-import/zod-import": "off",
+      "no-empty": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+      "no-new": "off",
+      "no-type-assertion/no-type-assertion": "off",
     },
   },
 

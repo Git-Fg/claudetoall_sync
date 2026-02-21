@@ -1,7 +1,9 @@
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
+
 import { discoverSources } from "./sources.js";
 
 describe("discoverSources", () => {
@@ -40,7 +42,7 @@ describe("discoverSources", () => {
     await writeFile(join(commandsDir, "test.md"), "Test command content");
     const result = await discoverSources(tmpDir);
     expect(result.commands).toHaveLength(2);
-    const names = result.commands.map((c) => c.name).sort();
+    const names = result.commands.map((c) => c.name).toSorted();
     expect(names).toEqual(["deploy", "test"]);
   });
 
